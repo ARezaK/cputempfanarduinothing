@@ -13,7 +13,7 @@ https://stackoverflow.com/questions/10137937/merge-dll-into-exe
 Use ILmergeGUI From here
 https://github.com/jpdillingham/ILMergeGUI/releases
 
-Figure out a way to reduce adminstration privielages required
-https://lifehacker.com/how-to-eliminate-uac-prompts-for-specific-applications-493128966
+Get rid of UAC 
+https://www.sevenforums.com/tutorials/11949-elevated-program-shortcut-without-uac-prompt-create.html
+When creating the task just set it to run at startup (i think that should work but i usually create the shortcut and put it in the startup folder anyways)
 
-Put Consoleapp1.exe (found in bin/debug) and openhardwaremonitorlib.ddl in startupfolder

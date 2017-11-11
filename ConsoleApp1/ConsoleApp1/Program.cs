@@ -18,7 +18,14 @@ namespace ConsoleApp1
 
         static void Main()
         {
-            port.Open(); // open port
+            try {
+                port.Open(); // open port
+            }
+            catch
+            {
+                System.Threading.Thread.Sleep(90000); //try again
+                port.Open(); // open port
+            }
             thisComputer = new Computer() { CPUEnabled = true };
             thisComputer.Open(); //init and open computer
             Console.WriteLine("Hello World!");

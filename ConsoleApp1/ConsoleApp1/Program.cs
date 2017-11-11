@@ -15,6 +15,7 @@ namespace ConsoleApp1
     {
         static Computer thisComputer;
         static SerialPort port = new SerialPort("COM3", 9600);
+        static double modifier = 1;
 
         static void Main()
         {
@@ -29,7 +30,8 @@ namespace ConsoleApp1
             thisComputer = new Computer() { CPUEnabled = true };
             thisComputer.Open(); //init and open computer
             Console.WriteLine("Hello World!");
-            while (1 == 1) { 
+            while (1 == 1) {
+                Console.WriteLine("Modifier: {0}\n", modifier);
                 foreach (var hardwareItem in thisComputer.Hardware)
                 {
                     if (hardwareItem.HardwareType == HardwareType.CPU) //looking for cpu only
@@ -44,18 +46,27 @@ namespace ConsoleApp1
                             {
 
                                 Console.WriteLine("{0} Temperature = {1}\r\n", sensor.Name, sensor.Value.HasValue ? sensor.Value.Value.ToString() : "no value");
-                                if (Int32.Parse(sensor.Value.Value.ToString()) > 50){
+                                if (Int32.Parse(sensor.Value.Value.ToString()) > 53){
                                     int n = 1;
-                                    while (n++ < 1000) { 
+                                    while (n++ < (900 *modifier)) { // correleates to 1 min  of on time
                                         byte[] buffer = new byte[] { Convert.ToByte('1') };
                                         port.Write(buffer, 0, 1);
                                     }
+                                    modifier = modifier * 1.7;
                                 }
-                                System.Threading.Thread.Sleep(2000);
+                                else
+                                {
+                                    modifier = modifier - 1;
+                                    if(modifier <= 1){
+                                        modifier = 1;
+                                    }
+                                }
+                                
                             }
                         }
                     }
                 }
+                System.Threading.Thread.Sleep(30000); //when watching youtube videos stays off for about a minute
             }
         }
     }

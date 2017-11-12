@@ -46,17 +46,18 @@ namespace ConsoleApp1
                             {
 
                                 Console.WriteLine("{0} Temperature = {1}\r\n", sensor.Name, sensor.Value.HasValue ? sensor.Value.Value.ToString() : "no value");
+                           
                                 if (Int32.Parse(sensor.Value.Value.ToString()) > 53){
                                     int n = 1;
                                     while (n++ < (900 *modifier)) { // correleates to 1 min  of on time
                                         byte[] buffer = new byte[] { Convert.ToByte('1') };
                                         port.Write(buffer, 0, 1);
                                     }
-                                    modifier = modifier * 1.7;
+                                    modifier = modifier * 1.6;
                                 }
                                 else
                                 {
-                                    modifier = modifier - 1;
+                                    modifier = modifier/1.1;
                                     if(modifier <= 1){
                                         modifier = 1;
                                     }
@@ -66,7 +67,7 @@ namespace ConsoleApp1
                         }
                     }
                 }
-                System.Threading.Thread.Sleep(30000); //when watching youtube videos stays off for about a minute
+                System.Threading.Thread.Sleep(25000); //when watching youtube videos stays off for about a minute
             }
         }
     }

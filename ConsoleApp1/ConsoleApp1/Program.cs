@@ -48,7 +48,7 @@ namespace ConsoleApp1
 
                                 Console.WriteLine("{0} Temperature = {1}\r\n", sensor.Name, sensor.Value.HasValue ? sensor.Value.Value.ToString() : "no value");
                            
-                                if (Int32.Parse(sensor.Value.Value.ToString()) > 53){
+                                if (Int32.Parse(sensor.Value.Value.ToString()) > 59){
                                     Console.WriteLine("Mans too hot!");
                                     int n = 1;
                                     while (n++ < (900 *modifier)) { // correleates to 1 min  of on time
